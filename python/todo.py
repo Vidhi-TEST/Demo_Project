@@ -1,25 +1,24 @@
-# Todo List
+# Refactored Todo List
 
-# Create an empty list to store the tasks
-tasks = []
+class TodoList:
+    def __init__(self):
+        self.tasks = []
 
-# Function to add a task to the list
-def add_task(task):
-    tasks.append(task)
+    def add_task(self, task):
+        self.tasks.append(task)
 
-# Function to remove a task from the list
-def remove_task(task):
-    tasks.remove(task)
+    def remove_task(self, task):
+        self.tasks.remove(task)
 
-# Function to print all tasks in the list
-def print_tasks():
-    for task in tasks:
-        print(task)
+    def print_tasks(self):
+        for task in self.tasks:
+            print(task)
 
-# Test the functions
-add_task("Buy groceries")
-add_task("Clean the house")
-add_task("Do laundry")
-print_tasks()
-remove_task("Clean the house")
-print_tasks()
+# Test the TodoList class
+todo_list = TodoList()
+todo_list.add_task("Buy groceries")
+todo_list.add_task("Clean the house")
+todo_list.add_task("Do laundry")
+todo_list.print_tasks()
+todo_list.remove_task("Clean the house")
+todo_list.print_tasks()
