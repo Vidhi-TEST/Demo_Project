@@ -1,24 +1,26 @@
-# Refactored Todo List
+import unittest
 
-class TodoList:
-    def __init__(self):
-        self.tasks = []
+class TestTodoList(unittest.TestCase):
+    def setUp(self):
+        self.todo_list = TodoList()
 
-    def add_task(self, task):
-        self.tasks.append(task)
+    def test_add_task(self):
+        self.todo_list.add_task("Buy groceries")
+        self.assertEqual(self.todo_list.tasks, ["Buy groceries"])
 
-    def remove_task(self, task):
-        self.tasks.remove(task)
+    def test_remove_task(self):
+        self.todo_list.add_task("Buy groceries")
+        self.todo_list.add_task("Clean the house")
+        self.todo_list.add_task("Do laundry")
+        self.todo_list.remove_task("Clean the house")
+        self.assertEqual(self.todo_list.tasks, ["Buy groceries", "Do laundry"])
 
-    def print_tasks(self):
-        for task in self.tasks:
-            print(task)
+    def test_print_tasks(self):
+        self.todo_list.add_task("Buy groceries")
+        self.todo_list.add_task("Clean the house")
+        self.todo_list.add_task("Do laundry")
+        expected_output = "Buy groceries\nClean the house\nDo laundry\n"
+        self.assertEqual(self.todo_list.print_tasks(), expected_output)
 
-# Test the TodoList class
-todo_list = TodoList()
-todo_list.add_task("Buy groceries")
-todo_list.add_task("Clean the house")
-todo_list.add_task("Do laundry")
-todo_list.print_tasks()
-todo_list.remove_task("Clean the house")
-todo_list.print_tasks()
+if __name__ == "__main__":
+    unittest.main()
