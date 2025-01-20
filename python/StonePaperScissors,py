@@ -1,3 +1,96 @@
+# Calculator
+
+# Addition
+def add(a, b):
+    return a + b
+
+# Subtraction
+def subtract(a, b):
+    return a - b
+
+# Multiplication
+def multiply(a, b):
+    return a * b
+
+# Division
+def divide(a, b):
+    if b != 0:
+        return a / b
+    else:
+        return "Error: Division by zero"
+
+# Test the calculator functions
+print(add(5, 3))
+print(subtract(10, 4))
+print(multiply(2, 6))
+print(divide(8, 2))
+print(divide(10, 0))
+
+import unittest
+
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    mid = len(arr) // 2
+    left_half = arr[:mid]
+    right_half = arr[mid:]
+
+    left_half = merge_sort(left_half)
+    right_half = merge_sort(right_half)
+
+    return merge(left_half, right_half)
+
+def merge(left, right):
+    merged = []
+    left_index = 0
+    right_index = 0
+
+    while left_index < len(left) and right_index < len(right):
+        if left[left_index] < right[right_index]:
+            merged.append(left[left_index])
+            left_index += 1
+        else:
+            merged.append(right[right_index])
+            right_index += 1
+
+    while left_index < len(left):
+        merged.append(left[left_index])
+        left_index += 1
+
+    while right_index < len(right):
+        merged.append(right[right_index])
+        right_index += 1
+
+    return merged
+
+class MergeSortTest(unittest.TestCase):
+    def test_merge_sort(self):
+        arr = [5, 2, 8, 3, 1, 6]
+        sorted_arr = merge_sort(arr)
+        self.assertEqual(sorted_arr, [1, 2, 3, 5, 6, 8])
+
+if __name__ == '__main__':
+    unittest.main()
+
+# Quick Sort Implementation
+
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+
+    return quick_sort(left) + middle + quick_sort(right)
+
+# Test the quick sort function
+arr = [3, 1, 5, 2, 4]
+sorted_arr = quick_sort(arr)
+print(sorted_arr)
+
 # Stone Paper Scissors Game
 
 import random
@@ -49,3 +142,115 @@ todo_list.add_task("Do laundry")
 todo_list.print_tasks()
 todo_list.remove_task("Clean the house")
 todo_list.print_tasks()
+
+# Tic-Tac-Toe Game
+
+# Create an empty board
+board = [' ' for _ in range(9)]
+
+# Function to print the board
+def print_board():
+    row1 = '|'.join(board[0:3])
+    row2 = '|'.join(board[3:6])
+    row3 = '|'.join(board[6:9])
+
+    print(row1)
+    print('-' * 5)
+    print(row2)
+    print('-' * 5)
+    print(row3)
+
+# Function to check if a player has won
+def check_win(player):
+    # Check rows
+    for i in range(0, 9, 3):
+        if board[i] == board[i+1] == board[i+2] == player:
+            return True
+
+    # Check columns
+    for i in range(3):
+        if board[i] == board[i+3] == board[i+6] == player:
+            return True
+
+    # Check diagonals
+    if board[0] == board[4] == board[8] == player:
+        return True
+    if board[2] == board[4] == board[6] == player:
+        return True
+
+    return False
+
+# Function to play the game
+def play_game():
+    current_player = 'X'
+    game_over = False
+
+    while not game_over:
+        print_board()
+        position = int(input("Enter a position (1-9): ")) - 1
+
+        if board[position] == ' ':
+            board[position] = current_player
+
+            if check_win(current_player):
+                print_board()
+                print(f"Player {current_player} wins!")
+                game_over = True
+            elif ' ' not in board:
+                print_board()
+                print("It's a tie!")
+                game_over = True
+            else:
+                current_player = 'O' if current_player == 'X' else 'X'
+        else:
+            print("That position is already taken. Try again.")
+
+# Start the game
+play_game()
+
+class TodoListTest(unittest.TestCase):
+    def test_add_task(self):
+        todo_list = TodoList()
+        todo_list.add_task("Buy groceries")
+        self.assertEqual(todo_list.tasks, ["Buy groceries"])
+
+    def test_remove_task(self):
+        todo_list = TodoList()
+        todo_list.add_task("Buy groceries")
+        todo_list.add_task("Clean the house")
+        todo_list.remove_task("Clean the house")
+        self.assertEqual(todo_list.tasks, ["Buy groceries"])
+
+    def test_print_tasks(self):
+        todo_list = TodoList()
+        todo_list.add_task("Buy groceries")
+        todo_list.add_task("Clean the house")
+        todo_list.add_task("Do laundry")
+        self.assertEqual(todo_list.print_tasks(), None)
+
+class CalculatorTest(unittest.TestCase):
+    def test_add(self):
+        self.assertEqual(add(5, 3), 8)
+
+    def test_subtract(self):
+        self.assertEqual(subtract(10, 4), 6)
+
+    def test_multiply(self):
+        self.assertEqual(multiply(2, 6), 12)
+
+    def test_divide(self):
+        self.assertEqual(divide(8, 2), 4)
+        self.assertEqual(divide(10, 0), "Error: Division by zero")
+
+class TicTacToeTest(unittest.TestCase):
+    def test_check_win(self):
+        board = ['X', 'X', 'X', ' ', ' ', ' ', ' ', ' ', ' ']
+        self.assertEqual(check_win('X'), True)
+        self.assertEqual(check_win('O'), False)
+
+    def test_play_game(self):
+        # TODO: Implement test for play_game function
+        pass
+
+if __name__ == '__main__':
+    unittest.main()
