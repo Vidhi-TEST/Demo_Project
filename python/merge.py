@@ -1,4 +1,4 @@
-# Merge Sort implementation in Python
+import unittest
 
 def merge_sort(arr):
     if len(arr) <= 1:
@@ -36,7 +36,11 @@ def merge(left, right):
     
     return merged
 
-# Test the merge sort implementation
-arr = [5, 2, 8, 3, 1, 6]
-sorted_arr = merge_sort(arr)
-print(sorted_arr)
+class MergeSortTest(unittest.TestCase):
+    def test_merge_sort(self):
+        arr = [5, 2, 8, 3, 1, 6]
+        sorted_arr = merge_sort(arr)
+        self.assertEqual(sorted_arr, [1, 2, 3, 5, 6, 8])
+
+if __name__ == '__main__':
+    unittest.main()
