@@ -11,3 +11,10 @@ def selection_sort(arr):
 arr = [64, 25, 12, 22, 11]
 sorted_arr = selection_sort(arr)
 print(sorted_arr)
+
+
+if __name__ == "__main__":
+    data = [64, 25, 12, 22, 11]
+    print("Unsorted array:", data)
+    selection_sort(data)
+    print("Sorted array:", data)
